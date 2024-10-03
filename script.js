@@ -1,43 +1,95 @@
-function startSimulation() {
-    const canvas = document.getElementById('penetrationChart');
-    const ctx = canvas.getContext('2d');
-    const attackTable = document.getElementById('attackTable').getElementsByTagName('tbody')[0];
-    const n = parseInt(document.getElementById('n').value);
-    const m = parseInt(document.getElementById('m').value);
-    const p = parseFloat(document.getElementById('p').value);
+document.getElementById('startSimulation').addEventListener('click', function() {
+    const numServers = parseInt(document.getElementById('numServers').value);
+    const numHackers = parseInt(document.getElementById('numHackers').value);
+    const probability = parseFloat(document.getElementById('probability').value) / 100;
 
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.beginPath();
-    ctx.moveTo(0, canvas.height);
+    const results = simulateAttacks(numHackers, numServers, probability);
+    displayResults(results);
+    drawChart(results, numServers);
+});
 
-    let sum = 0;
-    let c = 0; // Compensazione per la somma di Kahan
+function simulateAttacks(m, n, p) {
+    const results = [];
+    for (let i = 0; i < m; i++) {
+        const hackerResults = [];
+        let sum = 0.0;
+        let c = 0.0; // Variabile di correzione di Kahan
+        for (let j = 0; j < n; j++) {
+            let penetration = Math.random();
+            let yKahan = penetration - c;
+            let t = sum + yKahan;
+            c = (t - sum) - yKahan;
+            sum = t;
 
-    for (let i = 0; i < n; i++) {
-        const penetration = Math.random() < p ? 1 : 0;
-        const x = (i + 1) * (canvas.width / n);
-        const y = canvas.height - (penetration * canvas.height);
-        ctx.lineTo(x, y);
-        ctx.stroke();
-
-        if (penetration === 1) {
-            addAttackRow(`Hacker ${Math.floor(Math.random() * m) + 1}`, `Server ${i + 1}`);
+            if (penetration < p) {
+                hackerResults.push(j + 1);
+            }
         }
-
-        // Applicazione della somma di Kahan
-        let yKahan = penetration - c;
-        let t = sum + yKahan;
-        c = (t - sum) - yKahan;
-        sum = t;
+        results.push(hackerResults);
     }
-
-    console.log("Somma con correzione di Knuth:", sum);
+    return results;
 }
 
-function addAttackRow(hacker, server) {
-    const row = attackTable.insertRow();
-    const hackerCell = row.insertCell(0);
-    const serverCell = row.insertCell(1);
-    hackerCell.textContent = hacker;
-    serverCell.textContent = server;
+function displayResults(results) {
+    const tbody = document.querySelector('#resultsTable tbody');
+    tbody.innerHTML = '';
+    results.forEach((hackerResults, index) => {
+        const row = document.createElement('tr');
+        const hackerCell = document.createElement('td');
+        hackerCell.textContent = `Hacker ${index + 1}`;
+        const serversCell = document.createElement('td');
+        serversCell.textContent = hackerResults.join(', ');
+        row.appendChild(hackerCell);
+        row.appendChild(serversCell);
+        tbody.appendChild(row);
+    });
+}
+
+function drawChart(results, numServers) {
+    const ctx = document.getElementById('resultsChart').getContext('2d');
+    const datasets = results.map((hackerResults, index) => {
+        const data = Array(numServers).fill(0);
+        hackerResults.forEach(server => {
+            data[server - 1]++;
+        });
+        return {
+            label: `Hacker ${index + 1}`,
+            data: data,
+            borderColor: getRandomColor(),
+            fill: false
+        };
+    });
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: Array.from({ length: numServers }, (_, i) => `Server ${i + 1}`),
+            datasets: datasets
+        },
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Server'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Attacchi con Successo'
+                    }
+                }
+            }
+        }
+    });
+}
+
+function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
 }
