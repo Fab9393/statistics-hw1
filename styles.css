@@ -1,84 +1,25 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f9f9f9;
-    margin: 0;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-h1 {
-    color: #333;
-    font-size: 2.5em;
-    margin-bottom: 20px;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-label {
-    font-size: 1.2em;
-    margin-right: 10px;
-}
-
-input {
-    margin-bottom: 20px;
-    padding: 10px;
-    width: 120px;
-    border: 2px solid #4CAF50;
-    border-radius: 5px;
-    transition: border-color 0.3s;
-}
-
-input:focus {
-    border-color: #45a049;
-    outline: none; /* Rimuovi la cornice blu */
-}
-
-button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1.2em;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-button:hover {
-    background-color: #45a049;
-    transform: scale(1.05); /* Leggera espansione al passaggio del mouse */
+    font-family: Arial, sans-serif;
+    text-align: center;
 }
 
 canvas {
-    margin-top: 20px;
-    border: 1px solid #ccc;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid #000;
+    margin: 20px auto;
 }
 
-/* Stile per etichette e margini */
-canvas {
-    padding: 20px;
+table {
+    margin: 20px auto;
+    border-collapse: collapse;
+    width: 50%;
 }
 
-/* Stile per le etichette sugli assi */
-.axis-label {
-    font-size: 0.9em;
-    fill: #666;
+th, td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: center;
 }
 
-.axis {
-    stroke: #ccc;
-    stroke-width: 1;
-}
-
-/* Stile per le barre */
-.rect {
-    transition: fill 0.3s;
-}
-
-.rect:hover {
-    fill: #76c7c0; /* Colore delle barre al passaggio del mouse */
+label, input, button {
+    margin: 10px;
 }
