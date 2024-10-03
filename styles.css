@@ -1,85 +1,84 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f0f4f8; /* Colore di sfondo chiaro */
-    color: #333; /* Colore del testo */
+    background-color: #f9f9f9;
     margin: 0;
-    padding: 20px;
-}
-
-.container {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
-    background-color: #fff; /* Sfondo bianco per il contenitore */
-    border-radius: 8px; /* Angoli arrotondati */
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Ombra del contenitore */
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1 {
-    text-align: center;
-    color: #007bff; /* Colore blu per il titolo */
-    margin-bottom: 20px; /* Spazio sotto il titolo */
+    color: #333;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 label {
+    font-size: 1.2em;
     margin-right: 10px;
-    color: #555; /* Colore del testo delle etichette */
 }
 
 input {
-    margin: 10px 0;
-    padding: 8px; /* Padding interno per gli input */
-    border: 1px solid #ccc; /* Bordo grigio */
-    border-radius: 4px; /* Angoli arrotondati per gli input */
-    width: calc(100% / 3 - 22px); /* Larghezza responsiva */
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 120px;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    border-color: #45a049;
+    outline: none; /* Rimuovi la cornice blu */
 }
 
 button {
-    padding: 10px 15px; /* Padding per il pulsante */
-    background-color: #007bff; /* Colore di sfondo blu */
-    color: #fff; /* Colore del testo bianco */
-    border: none; /* Rimuovi il bordo */
-    border-radius: 4px; /* Angoli arrotondati per il pulsante */
-    cursor: pointer; /* Cambia il cursore su hover */
-    transition: background-color 0.3s; /* Effetto di transizione */
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 button:hover {
-    background-color: #0056b3; /* Colore di sfondo più scuro al passaggio del mouse */
+    background-color: #45a049;
+    transform: scale(1.05); /* Leggera espansione al passaggio del mouse */
 }
 
 canvas {
-    display: block;
-    margin: 20px auto; /* Centro il canvas */
-    border: 2px solid #007bff; /* Bordo blu per il canvas */
-    border-radius: 4px; /* Angoli arrotondati per il canvas */
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px; /* Spazio sopra la tabella */
+/* Stile per etichette e margini */
+canvas {
+    padding: 20px;
 }
 
-th, td {
-    padding: 10px; /* Padding per celle */
-    text-align: center; /* Allinea il testo al centro */
-    border: 1px solid #ddd; /* Bordo grigio chiaro */
+/* Stile per le etichette sugli assi */
+.axis-label {
+    font-size: 0.9em;
+    fill: #666;
 }
 
-th {
-    background-color: #f4f4f4; /* Colore di sfondo per l'intestazione */
-    color: #333; /* Colore del testo dell'intestazione */
+.axis {
+    stroke: #ccc;
+    stroke-width: 1;
 }
 
-tbody tr:nth-child(odd) {
-    background-color: #f9f9f9; /* Colore alternato per le righe */
+/* Stile per le barre */
+.rect {
+    transition: fill 0.3s;
 }
 
-tbody tr:hover {
-    background-color: #e9ecef; /* Colore di sfondo per le righe al passaggio del mouse */
-}
-
-tbody tr td {
-    border-bottom: 1px solid #ddd; /* Bordo inferiore per le celle */
+.rect:hover {
+    fill: #76c7c0; /* Colore delle barre al passaggio del mouse */
 }
