@@ -45,15 +45,6 @@ function simulazioneHackingServer(N, M, p, T) {
     return { successiPerHacker, distribuzioneEmpirica }; 
 }
 
-// Parametri della simulazione
-let N = 10;  // Numero di server
-let M = 5; // Numero di hacker
-let p = 0.11; // Probabilità di successo (0.5 significa 50% di successo)
-let T = 10; // Numero di simulazioni
-
-// Esegui la simulazione e ottieni i risultati
-let { successiPerHacker, distribuzioneEmpirica } = simulazioneHackingServer(N, M, p, T);
-
 // Funzione per generare colori casuali per ogni linea (hacker)
 function getRandomColor() {
     const letters = '0123456789ABCDEF'; 
@@ -64,52 +55,63 @@ function getRandomColor() {
     return color; 
 }
 
-// Prepara i dati per il grafico
-let hackersData = [];
-for (let i = 0; i < M; i++) {
-    hackersData.push({
-        label: `Hacker ${i + 1}: - server bucati: ${successiPerHacker[i][T - 1]}, - distribuzione empirica: ${distribuzioneEmpirica[i].toFixed(2)}`, // Etichetta per ogni hacker
-        data: successiPerHacker[i], // Dati dei successi per l'hacker
-        borderColor: getRandomColor(), // Colore della linea
-        fill: false // Non riempire sotto la linea
-    });
-}
-
 // Funzione per disegnare il grafico
-function disegnaGrafico() {
+function disegnaGrafico(successiPerHacker, distribuzioneEmpirica, T) {
+    let hackersData = [];
+    for (let i = 0; i < successiPerHacker.length; i++) {
+        hackersData.push({
+            label: `Hacker ${i + 1}: - server bucati: ${successiPerHacker[i][T - 1]}, - distribuzione empirica: ${distribuzioneEmpirica[i].toFixed(2)}`,
+            data: successiPerHacker[i],
+            borderColor: getRandomColor(),
+            fill: false
+        });
+    }
+
     const ctx = document.getElementById('attacchiGrafico').getContext('2d');
     new Chart(ctx, {
-        type: 'line', // Tipo di grafico (lineare)
+        type: 'line',
         data: {
-            labels: Array.from({ length: T }, (_, i) => `t${i}`), // Asse x (tempo t)
-            datasets: hackersData  // Dati delle linee degli hacker
+            labels: Array.from({ length: T }, (_, i) => `t${i}`),
+            datasets: hackersData
         },
         options: {
             scales: {
                 x: {
                     title: {
                         display: true,
-                        text: 'Tempo (t)' // Titolo dell'asse x
+                        text: 'Tempo (t)'
                     }
                 },
                 y: {
                     title: {
                         display: true,
-                        text: 'Numero totale di Server Bucati' // Titolo dell'asse y
+                        text: 'Numero totale di Server Bucati'
                     },
-                    beginAtZero: true, // Inizia l'asse y da zero
-                    max: N // Imposta il valore massimo dell'asse y
+                    beginAtZero: true,
+                    max: Math.max(...successiPerHacker.flat()) // Imposta il valore massimo dell'asse y
                 }
             },
             plugins: {
                 legend: {
-                    display: true, // Mostra la leggenda
-                    position: 'bottom' // Posizione della leggenda
+                    display: true,
+                    position: 'bottom'
                 }
             }
         }
     });
 }
 
-// Esegui la simulazione e disegna il grafico
-disegnaGrafico();
+// Aggiungi evento al pulsante
+document.getElementById('simulateButton').addEventListener('click', () => {
+    // Leggi i valori dal modulo
+    const N = parseInt(document.getElementById('n').value); // Numero di server
+    const M = parseInt(document.getElementById('m').value); // Numero di hacker
+    const p = parseFloat(document.getElementById('p').value); // Probabilità di successo
+    const T = parseInt(document.getElementById('t').value); // Numero di simulazioni
+
+    // Esegui la simulazione e ottieni i risultati
+    const { successiPerHacker, distribuzioneEmpirica } = simulazioneHackingServer(N, M, p, T);
+    
+    // Disegna il grafico con i risultati
+    disegnaGrafico(successiPerHacker, distribuzioneEmpirica, T);
+});
