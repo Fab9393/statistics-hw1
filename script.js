@@ -55,6 +55,8 @@ function getRandomColor() {
     return color; 
 }
 
+let myChart;
+
 // Funzione per disegnare il grafico
 function disegnaGrafico(successiPerHacker, distribuzioneEmpirica, T, N) {
     let hackersData = [];
