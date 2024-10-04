@@ -1,16 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulazione Attacchi Hacker - Grafico</title>
-    <link rel="stylesheet" href="style.css"> <!-- Link al file CSS -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Libreria Chart.js -->
+    <title>Simulazione di Attacchi Hacker - hw 1</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h2>Simulazione Attacchi Hacker - Grafico</h2>
-    <canvas id="attacchiGrafico"></canvas> <!-- Contenitore del grafico -->
-
-    <script src="script.js"></script> <!-- Link al file JavaScript -->
+    <h1>Simulazione di Attacchi Hacker - hw 1</h1>
+    <label for="n">Numero di server (n):</label>
+    <input type="number" id="n" name="n" min="1" step="1"><br>
+    <label for="m">Numero di hacker (m):</label>
+    <input type="number" id="m" name="m" min="1" step="1"><br>
+    <label for="p">Probabilità di penetrazione (p):</label>
+    <input type="number" id="p" name="p" min="0" max="1" step="0.01"><br>
+    <label for="p">numero di simulazioni (t):</label>
+    <input type="number" id="t" name="t" min="0" step="1"><br>
+    <button onclick="startSimulation()">Start</button>
+    <canvas id="penetrationChart" width="800" height="400"></canvas>
+    <table id="attackTable">
+        <thead>
+            <tr>
+                <th>Hacker</th>
+                <th>Server Attaccato</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Le righe saranno aggiunte dinamicamente -->
+        </tbody>
+    </table>
+    <script src="script.js"></script>
 </body>
 </html>

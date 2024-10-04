@@ -12,7 +12,7 @@ function simulazioneBucareServer(N, M, p, T) {
     let successiPerHacker = Array.from({ length: M }, () => Array(T).fill(0)); // Inizializza gli attacchi per hacker
 
     // Per ogni simulazione t
-    for (let t = 0; t < T; t++) {
+    for (let t = 1; t <= T; t++) {
         // Per ogni server j
         for (let j = 0; j < N; j++) {
             // Per ciascun hacker
@@ -42,17 +42,22 @@ function simulazioneBucareServer(N, M, p, T) {
         return successi.map(s => s / N);  // Dividi il numero di successi per il numero di server (media)
     });
 
+    disegnaGrafico();
     return distribuzioneEmpirica; // Ritorna la distribuzione empirica
+    // Esegui la simulazione e disegna il grafico
+
 }
 
 // Parametri della simulazione
-let N = 5;  // Numero di server
-let M = 10; // Numero di hacker
-let p = 0.7; // Probabilità che un hacker NON riesca a bucare un server
-let T = 20; // Numero di simulazioni
+let N = parseInt(document.getElementById('n').value); // Numero di server
+let M = parseInt(document.getElementById('m').value); // Numero di hacker
+let p = parseFloat(document.getElementById('p').value); // Probabilità che un hacker NON riesca a bucare un server
+let T = parseInt(document.getElementById('t').value); // Numero di simulazioni
 
-// Esegui la simulazione e ottieni i risultati
-let risultati = simulazioneBucareServer(N, M, p, T);
+function eseguiSimulazione() {
+    let risultati = simulazioneBucareServer(N, M, p, T);
+    disegnaGrafico();
+}
 
 // Genera colori casuali per ogni linea (hacker)
 function getRandomColor() {
@@ -110,5 +115,5 @@ function disegnaGrafico() {
     });
 }
 
-// Esegui la simulazione e disegna il grafico
-disegnaGrafico();
+// Aggiungi l'evento submit al modulo
+document.getElementById('inputForm').addEventListener('submit', eseguiSimulazione);
