@@ -103,9 +103,21 @@ function disegnaGrafico(successiPerHacker, distribuzioneEmpirica, T, N) {
     });
 }
 
+function declareChart() {
+    const ctx = document.getElementById('attacchiGrafico').getContext('2d');
+    
+    // Crea un nuovo grafico solo se non esiste già
+    if (myChart) {
+        myChart.destroy(); // Distruggi il grafico esistente
+    }
+    
+    myChart = new Chart(ctx, {}); // Crea un nuovo grafico
+}
+
 // Aggiungi evento al pulsante
 document.getElementById('simulateButton').addEventListener('click', () => {
     // Leggi i valori dal modulo
+    declareChart();
     myChart.destroy();
     const N = parseInt(document.getElementById('n').value); // Numero di server
     const M = parseInt(document.getElementById('m').value); // Numero di hacker
