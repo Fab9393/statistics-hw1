@@ -46,8 +46,8 @@ function simulazioneBucareServer(N, M, p, T) {
 }
 
 // Parametri della simulazione
-let N = 10;  // Numero di server
-let M = 5; // Numero di hacker
+let N = 5;  // Numero di server
+let M = 10; // Numero di hacker
 let p = 0.7; // Probabilità che un hacker NON riesca a bucare un server
 let T = 20; // Numero di simulazioni
 
