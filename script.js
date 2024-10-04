@@ -70,7 +70,7 @@ function disegnaGrafico(successiPerHacker, distribuzioneEmpirica, T, N) {
 
     const ctx = document.getElementById('attacchiGrafico').getContext('2d');
     // Check if myChart already exists and destroy it
-    if(myChart()){
+    if(myChart){
         myChart.destroy();
     }
     new Chart(ctx, {
