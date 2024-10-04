@@ -63,7 +63,7 @@ function simulazioneHackingServer(N, M, p, T) {
 // Parametri della simulazione
 let N = 5;  // Numero di server
 let M = 10; // Numero di hacker
-let p = 0.3; // Probabilità di successo (il hacker ha il 70% di possibilità di bucare un server)
+let p = 0.9; // Probabilità di successo (l'hacker ha il 70% di possibilità di bucare un server)
 let T = 20; // Numero di simulazioni
 
 // Esegui la simulazione e ottieni i risultati
