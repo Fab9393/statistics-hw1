@@ -115,6 +115,7 @@ document.getElementById('simulateButton').addEventListener('click', () => {
     // Esegui la simulazione e ottieni i risultati
     const { successiPerHacker, distribuzioneEmpirica } = simulazioneHackingServer(N, M, p, T);
     
+    document.getElementById('mod').style.display = 'none'; // Nascondi la modale
     // Disegna il grafico con i risultati
     disegnaGrafico(successiPerHacker, distribuzioneEmpirica, T, N);
 });
