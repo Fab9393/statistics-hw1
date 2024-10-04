@@ -70,10 +70,7 @@ function disegnaGrafico(successiPerHacker, distribuzioneEmpirica, T, N) {
 
     const ctx = document.getElementById('attacchiGrafico').getContext('2d');
     // Check if myChart already exists and destroy it
-    if(myChart){
-        myChart.destroy();
-    }
-    new Chart(ctx, {
+    myChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: Array.from({ length: T }, (_, i) => `t${i}`),
@@ -109,6 +106,7 @@ function disegnaGrafico(successiPerHacker, distribuzioneEmpirica, T, N) {
 // Aggiungi evento al pulsante
 document.getElementById('simulateButton').addEventListener('click', () => {
     // Leggi i valori dal modulo
+    myChart.destroy();
     const N = parseInt(document.getElementById('n').value); // Numero di server
     const M = parseInt(document.getElementById('m').value); // Numero di hacker
     const p = parseFloat(document.getElementById('p').value); // Probabilità di successo
