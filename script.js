@@ -8,7 +8,7 @@ function sommaCompensata(somma, valore, compensazione) {
 }
 
 // Funzione per simulare gli attacchi sui server con distribuzione empirica
-function simulazioneBucareServer(N, M, p, T) {
+function simulazioneHackingServer(N, M, p, T) {
     let successiPerHacker = Array.from({ length: M }, () => Array(T).fill(0)); // Inizializza gli attacchi per hacker
 
     // Per ogni simulazione t
@@ -52,7 +52,7 @@ let p = 0.7; // Probabilità che un hacker NON riesca a bucare un server
 let T = 20; // Numero di simulazioni
 
 // Esegui la simulazione e ottieni i risultati
-let risultati = simulazioneBucareServer(N, M, p, T);
+let risultati = simulazioneHackingServer(N, M, p, T);
 
 // Genera colori casuali per ogni linea (hacker)
 function getRandomColor() {
@@ -95,7 +95,7 @@ function disegnaGrafico() {
                 y: {
                     title: {
                         display: true,
-                        text: 'Numero medio di server bucati'
+                        text: 'Distribuzione Server Hackerati'
                     },
                     beginAtZero: true
                 }
