@@ -45,38 +45,42 @@ function simulazioneBucareServer(N, M, p, T) {
     return distribuzioneEmpirica; // Ritorna la distribuzione empirica
 }
 
-// Parametri della simulazione
-let N = 5;  // Numero di server
-let M = 10; // Numero di hacker
-let p = 0.3; // Probabilità che un hacker NON riesca a bucare un server
-let T = 20; // Numero di simulazioni
+// Funzione per eseguire la simulazione e disegnare il grafico
+function eseguiSimulazione(event) {
+    event.preventDefault(); // Previene il comportamento predefinito del form
 
-// Esegui la simulazione e ottieni i risultati
-let risultati = simulazioneBucareServer(N, M, p, T);
+    // Ottieni i valori dal modulo
+    const N = parseInt(document.getElementById('N').value);
+    const M = parseInt(document.getElementById('M').value);
+    const T = parseInt(document.getElementById('T').value);
+    const p = parseFloat(document.getElementById('p').value);
 
-// Genera colori casuali per ogni linea (hacker)
-function getRandomColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)];
+    // Esegui la simulazione e ottieni i risultati
+    const risultati = simulazioneBucareServer(N, M, p, T);
+
+    // Genera colori casuali per ogni linea (hacker)
+    function getRandomColor() {
+        const letters = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
     }
-    return color;
-}
 
-// Prepara i dati per il grafico
-let hackersData = [];
-for (let i = 0; i < M; i++) {
-    hackersData.push({
-        label: `Hacker ${i + 1}`,
-        data: risultati[i],
-        borderColor: getRandomColor(),
-        fill: false
-    });
-}
+    // Prepara i dati per il grafico
+    let hackersData = [];
+    for (let i = 0; i < M; i++) {
+        const numBucati = risultati[i][T - 1]; // Ottieni il numero finale di server bucati
+        hackersData.push({
+            label: `Hacker ${i + 1}: ${numBucati.toFixed(2)} server bucati`, // Aggiorna la legenda con il numero di server bucati
+            data: risultati[i],
+            borderColor: getRandomColor(),
+            fill: false
+        });
+    }
 
-// Disegna il grafico
-function disegnaGrafico() {
+    // Disegna il grafico
     const ctx = document.getElementById('attacchiGrafico').getContext('2d');
     new Chart(ctx, {
         type: 'line',
@@ -110,5 +114,5 @@ function disegnaGrafico() {
     });
 }
 
-// Esegui la simulazione e disegna il grafico
-disegnaGrafico();
+// Aggiungi l'evento submit al modulo
+document.getElementById('inputForm').addEventListener('submit', eseguiSimulazione);
