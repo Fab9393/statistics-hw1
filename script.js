@@ -49,7 +49,7 @@ function simulazioneHackingServer(N, M, p, T) {
 let N = 10;  // Numero di server
 let M = 5; // Numero di hacker
 let p = 0.11; // Probabilità di successo (0.5 significa 50% di successo)
-let T = 20; // Numero di simulazioni
+let T = 10; // Numero di simulazioni
 
 // Esegui la simulazione e ottieni i risultati
 let { successiPerHacker, distribuzioneEmpirica } = simulazioneHackingServer(N, M, p, T);
