@@ -12,7 +12,7 @@ function simulazioneBucareServer(N, M, p, T) {
     let successiPerHacker = Array.from({ length: M }, () => Array(T).fill(0)); // Inizializza gli attacchi per hacker
 
     // Per ogni simulazione t
-    for (let t = 0; t < T; t++) {
+    for (let t = 1; t <= T; t++) {
         // Per ogni server j
         for (let j = 0; j < N; j++) {
             // Per ciascun hacker
