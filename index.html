@@ -9,24 +9,6 @@
 </head>
 <body>
     <h2>Simulazione Attacchi Hacker - Grafico</h2>
-
-    <!-- Modulo per input variabili -->
-    <form id="inputForm">
-        <label for="N">Numero di server (N):</label>
-        <input type="number" id="N" value="5" required>
-        
-        <label for="M">Numero di hacker (M):</label>
-        <input type="number" id="M" value="10" required>
-        
-        <label for="T">Numero di simulazioni (T):</label>
-        <input type="number" id="T" value="20" required>
-        
-        <label for="p">Probabilità che un hacker non riesca a bucare un server (p):</label>
-        <input type="number" id="p" step="0.01" value="0.7" min="0" max="1" required>
-
-        <button type="submit">Esegui Simulazione</button>
-    </form>
-
     <canvas id="attacchiGrafico"></canvas> <!-- Contenitore del grafico -->
 
     <script src="script.js"></script> <!-- Link al file JavaScript -->
