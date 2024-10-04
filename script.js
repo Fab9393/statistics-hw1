@@ -56,11 +56,7 @@ function getRandomColor() {
 }
 
 // Funzione per disegnare il grafico
-function disegnaGrafico(successiPerHacker, distribuzioneEmpirica, T) {
-    // Se esiste già un grafico, distruggilo
-    if (myChart) {
-        myChart.destroy(); // Distruggi il grafico esistente
-    }
+function disegnaGrafico(successiPerHacker, distribuzioneEmpirica, T, N) {
     let hackersData = [];
     for (let i = 0; i < successiPerHacker.length; i++) {
         hackersData.push({
@@ -92,7 +88,7 @@ function disegnaGrafico(successiPerHacker, distribuzioneEmpirica, T) {
                         text: 'Numero totale di Server Bucati'
                     },
                     beginAtZero: true,
-                    max: Math.max(...successiPerHacker.flat()) // Imposta il valore massimo dell'asse y
+                    max: N // Imposta il valore massimo dell'asse y
                 }
             },
             plugins: {
@@ -107,6 +103,10 @@ function disegnaGrafico(successiPerHacker, distribuzioneEmpirica, T) {
 
 // Aggiungi evento al pulsante
 document.getElementById('simulateButton').addEventListener('click', () => {
+    // Se esiste già un grafico, distruggilo
+    if (myChart) {
+        myChart.destroy(); // Distruggi il grafico esistente
+    }
     // Leggi i valori dal modulo
     const N = parseInt(document.getElementById('n').value); // Numero di server
     const M = parseInt(document.getElementById('m').value); // Numero di hacker
@@ -117,5 +117,5 @@ document.getElementById('simulateButton').addEventListener('click', () => {
     const { successiPerHacker, distribuzioneEmpirica } = simulazioneHackingServer(N, M, p, T);
     
     // Disegna il grafico con i risultati
-    disegnaGrafico(successiPerHacker, distribuzioneEmpirica, T);
+    disegnaGrafico(successiPerHacker, distribuzioneEmpirica, T, N);
 });
