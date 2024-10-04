@@ -55,7 +55,6 @@ function getRandomColor() {
     return color; 
 }
 
-let myChart;
 
 // Funzione per disegnare il grafico
 function disegnaGrafico(successiPerHacker, distribuzioneEmpirica, T, N) {
@@ -106,9 +105,9 @@ function disegnaGrafico(successiPerHacker, distribuzioneEmpirica, T, N) {
 // Aggiungi evento al pulsante
 document.getElementById('simulateButton').addEventListener('click', () => {
     // Se esiste già un grafico, distruggilo
-    if (myChart) {
-        myChart.destroy(); // Distruggi il grafico esistente
-    }
+    var area = document.getElementById("attacchiGrafico").getContext("2d");
+    var myChart = new Chart(area, {});
+    myChart.destroy();
     // Leggi i valori dal modulo
     const N = parseInt(document.getElementById('n').value); // Numero di server
     const M = parseInt(document.getElementById('m').value); // Numero di hacker
