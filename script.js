@@ -106,6 +106,9 @@ function disegnaGrafico(successiPerHacker, distribuzioneEmpirica, T, N) {
     });
 }
 
+const ctx = document.getElementById('attacchiGrafico').getContext('2d');
+let myChart;
+
 // Aggiungi evento al pulsante
 document.getElementById('simulateButton').addEventListener('click', () => {
     // Leggi i valori dal modulo
