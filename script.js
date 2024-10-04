@@ -12,7 +12,7 @@ function simulazioneHackingServer(N, M, p, T) {
     let successiPerHacker = Array.from({ length: M }, () => Array(T).fill(0)); // Inizializza gli attacchi per hacker
 
     // Per ogni simulazione t
-    for (let t = 1; t <= T; t++) {
+    for (let t = 0; t < T; t++) {
         // Per ogni server j
         for (let j = 0; j < N; j++) {
             // Per ciascun hacker
@@ -27,16 +27,11 @@ function simulazioneHackingServer(N, M, p, T) {
                 if (r >= p) {
                     let risultato = sommaCompensata(sommaSuccessi, 1, compensazione);
                     sommaSuccessi = risultato.somma;
-
-                    // Limita il numero di successi al numero di server disponibili
-                    if (sommaSuccessi > N) {
-                        sommaSuccessi = N; // Non può superare il numero di server
-                    }
                 }
 
                 // Aggiorna il conteggio dei successi per l'hacker alla simulazione successiva
-                if (t < T) {
-                    successiPerHacker[i][t] = sommaSuccessi;
+                if (t + 1 < T) {
+                    successiPerHacker[i][t + 1] = sommaSuccessi;
                 }
             }
         }
@@ -73,7 +68,7 @@ function getRandomColor() {
 let hackersData = [];
 for (let i = 0; i < M; i++) {
     hackersData.push({
-        label: `Hacker ${i + 1} (Distribuzione Empirica: ${distribuzioneEmpirica[i]})`, // Aggiungi la distribuzione nella legenda
+        label: `Hacker ${i + 1} (Bucati: ${distribuzioneEmpirica[i]})`, // Aggiungi la distribuzione nella legenda
         data: successiPerHacker[i],
         borderColor: getRandomColor(),
         fill: false
@@ -100,10 +95,9 @@ function disegnaGrafico() {
                 y: {
                     title: {
                         display: true,
-                        text: 'Numero di Server Hackerati'
+                        text: 'Numero di Server Bucati'
                     },
-                    beginAtZero: true,
-                    max: N  // Imposta il massimo dell'asse Y al numero di server
+                    beginAtZero: true
                 }
             },
             plugins: {
