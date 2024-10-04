@@ -69,6 +69,10 @@ function disegnaGrafico(successiPerHacker, distribuzioneEmpirica, T, N) {
     }
 
     const ctx = document.getElementById('attacchiGrafico').getContext('2d');
+    // Check if myChart already exists and destroy it
+    if (typeof myChart !== 'undefined') {
+        myChart.destroy();
+    }
     new Chart(ctx, {
         type: 'line',
         data: {
@@ -101,14 +105,9 @@ function disegnaGrafico(successiPerHacker, distribuzioneEmpirica, T, N) {
         }
     });
 }
-const ctx = document.getElementById('attacchiGrafico').getContext('2d');
-let myChart;
 
 // Aggiungi evento al pulsante
 document.getElementById('simulateButton').addEventListener('click', () => {
-    if (myChart) {
-        myChart.destroy(); // Distruggi il grafico esistente
-    }
     // Leggi i valori dal modulo
     const N = parseInt(document.getElementById('n').value); // Numero di server
     const M = parseInt(document.getElementById('m').value); // Numero di hacker
