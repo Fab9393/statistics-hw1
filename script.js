@@ -18,6 +18,7 @@ function simulazioneHackingServer(N, M, p, T) {
         for (let j = 0; j < N; j++) {
             // Per ciascun hacker i
             for (let i = 0; i < M; i++) {
+                // Controlla se il server j è già stato bucato da i
                 if (!serverBucati[i].has(j)) { 
                     let sommaSuccessi = successiPerHacker[i][t]; 
                     let compensazione = 0; 
@@ -25,10 +26,11 @@ function simulazioneHackingServer(N, M, p, T) {
                     // Genera un numero casuale tra 0 e 1
                     let r = Math.random();
 
-                    // Se r >= p, l'hacker riesce a bucare il server
-                    if (r >= p) {
+                    // Se r <= p, l'hacker riesce a bucare il server (inverte la logica)
+                    if (r <= p) {
                         let risultato = sommaCompensata(sommaSuccessi, 1, compensazione);
                         sommaSuccessi = risultato.somma; 
+                        // Aggiungi il server bucato al set
                         serverBucati[i].add(j); 
                     }
 
@@ -61,7 +63,7 @@ function simulazioneHackingServer(N, M, p, T) {
 // Parametri della simulazione
 let N = 5;  // Numero di server
 let M = 10; // Numero di hacker
-let p = 0.9; // Probabilità che un hacker NON riesca a bucare un server
+let p = 0.7; // Probabilità di successo (il hacker ha il 70% di possibilità di bucare un server)
 let T = 20; // Numero di simulazioni
 
 // Esegui la simulazione e ottieni i risultati
