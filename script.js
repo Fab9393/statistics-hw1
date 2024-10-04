@@ -7,7 +7,7 @@ function sommaCompensata(somma, valore, compensazione) {
     return { somma, compensazione };
 }
 
-// Funzione per simulare gli attacchi sui server
+// Funzione per simulare gli attacchi sui server con distribuzione empirica
 function simulazioneBucareServer(N, M, p, T) {
     let successiPerHacker = Array.from({ length: M }, () => Array(T).fill(0)); // Inizializza gli attacchi per hacker
 
@@ -36,7 +36,13 @@ function simulazioneBucareServer(N, M, p, T) {
             }
         }
     }
-    return successiPerHacker;
+
+    // Calcola la distribuzione empirica per ciascun hacker
+    let distribuzioneEmpirica = successiPerHacker.map(successi => {
+        return successi.map(s => s / N);  // Dividi il numero di successi per il numero di server (media)
+    });
+
+    return distribuzioneEmpirica; // Ritorna la distribuzione empirica
 }
 
 // Parametri della simulazione
@@ -89,7 +95,7 @@ function disegnaGrafico() {
                 y: {
                     title: {
                         display: true,
-                        text: 'Numero di server bucati'
+                        text: 'Numero medio di server bucati'
                     },
                     beginAtZero: true
                 }
