@@ -57,6 +57,10 @@ function getRandomColor() {
 
 // Funzione per disegnare il grafico
 function disegnaGrafico(successiPerHacker, distribuzioneEmpirica, T) {
+    // Se esiste già un grafico, distruggilo
+    if (myChart) {
+        myChart.destroy(); // Distruggi il grafico esistente
+    }
     let hackersData = [];
     for (let i = 0; i < successiPerHacker.length; i++) {
         hackersData.push({
