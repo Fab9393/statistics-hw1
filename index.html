@@ -10,24 +10,20 @@
 <body>
     <h2>Simulazione Attacchi Hacker - Grafico - HW1</h2>
     
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close" id="closeModal">&times;</span>
-            <h2>Imposta i Parametri per la Simulazione</h2>
-            <label for="n">Numero di Server:</label>
-            <input type="number" id="n" required>
-            
-            <label for="m">Numero di Hacker:</label>
-            <input type="number" id="m" required>
-            
-            <label for="p">Probabilità di Successo:</label>
-            <input type="number" id="p" required step="0.01" min="0" max="1">
-            
-            <label for="t">Numero di Simulazioni:</label>
-            <input type="number" id="t" required>
-    
-            <button id="simulateButton">Simula</button>
-        </div>
+    <div id="modal" style="display: block;">
+        <label for="n">Numero di server (N):</label>
+        <input type="number" id="n" required>
+        
+        <label for="m">Numero di hacker (M):</label>
+        <input type="number" id="m" required>
+        
+        <label for="p">Probabilità di successo (p):</label>
+        <input type="number" id="p" step="0.01" required>
+        
+        <label for="t">Numero di simulazioni (T):</label>
+        <input type="number" id="t" required>
+        
+        <button id="simulateButton">Esegui Simulazione</button> <!-- Pulsante per avviare la simulazione -->
     </div>
     
     <canvas id="attacchiGrafico"></canvas> <!-- Contenitore del grafico -->
