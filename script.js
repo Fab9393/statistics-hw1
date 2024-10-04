@@ -39,10 +39,10 @@ function simulazioneHackingServer(N, M, p, T) {
 
     // Calcola la distribuzione empirica per ciascun hacker
     let distribuzioneEmpirica = successiPerHacker.map(successi => {
-        return successi.map(s => s / N);  // Dividi il numero di successi per il numero di server (media)
+        return successi[T - 1];  // Prendi il numero totale di successi al tempo finale
     });
 
-    return distribuzioneEmpirica; // Ritorna la distribuzione empirica
+    return { successiPerHacker, distribuzioneEmpirica }; // Ritorna i successi e la distribuzione empirica
 }
 
 // Parametri della simulazione
@@ -52,7 +52,7 @@ let p = 0.7; // Probabilità che un hacker NON riesca a bucare un server
 let T = 20; // Numero di simulazioni
 
 // Esegui la simulazione e ottieni i risultati
-let risultati = simulazioneHackingServer(N, M, p, T);
+let { successiPerHacker, distribuzioneEmpirica } = simulazioneHackingServer(N, M, p, T);
 
 // Genera colori casuali per ogni linea (hacker)
 function getRandomColor() {
@@ -68,8 +68,8 @@ function getRandomColor() {
 let hackersData = [];
 for (let i = 0; i < M; i++) {
     hackersData.push({
-        label: `Hacker ${i + 1}`,
-        data: risultati[i],
+        label: `Hacker ${i + 1} (Bucati: ${distribuzioneEmpirica[i]})`, // Aggiungi la distribuzione nella legenda
+        data: successiPerHacker[i],
         borderColor: getRandomColor(),
         fill: false
     });
@@ -95,7 +95,7 @@ function disegnaGrafico() {
                 y: {
                     title: {
                         display: true,
-                        text: 'Distribuzione Server Hackerati'
+                        text: 'Numero di Server Bucati'
                     },
                     beginAtZero: true
                 }
