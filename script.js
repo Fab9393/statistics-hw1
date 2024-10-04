@@ -20,35 +20,19 @@ function simulazioneHackingServer(N, M, p, T) {
             for (let i = 0; i < M; i++) {
                 // Controlla se il server j è già stato bucato da i
                 if (!serverBucati[i].has(j)) { 
-                    let sommaSuccessi = successiPerHacker[i][t]; 
-                    let compensazione = 0; 
-
-                    // Genera un numero casuale tra 0 e 1
-                    let r = Math.random();
+                    let r = Math.random(); // Genera un numero casuale tra 0 e 1
 
                     // Se r <= p, l'hacker riesce a bucare il server (inverte la logica)
                     if (r <= p) {
-                        let risultato = sommaCompensata(sommaSuccessi, 1, compensazione);
-                        sommaSuccessi = risultato.somma; 
-                        // Aggiungi il server bucato al set
-                        serverBucati[i].add(j); 
-                    }
-
-                    // Aggiorna il conteggio dei successi per l'hacker alla simulazione successiva
-                    if (t + 1 < T) {
-                        successiPerHacker[i][t + 1] = sommaSuccessi; 
+                        serverBucati[i].add(j); // Aggiungi il server bucato al set
                     }
                 }
             }
         }
-    }
 
-    // Assicurati che alla fine della simulazione, se un hacker ha bucato tutti i server, rimanga al massimo
-    for (let i = 0; i < M; i++) {
-        for (let t = 0; t < T; t++) {
-            if (serverBucati[i].size === N) {
-                successiPerHacker[i][t] = N;
-            }
+        // Dopo tutti i tentativi per t, calcola i successi
+        for (let i = 0; i < M; i++) {
+            successiPerHacker[i][t] = serverBucati[i].size; // Aggiorna i successi per l'hacker
         }
     }
 
@@ -63,7 +47,7 @@ function simulazioneHackingServer(N, M, p, T) {
 // Parametri della simulazione
 let N = 5;  // Numero di server
 let M = 10; // Numero di hacker
-let p = 0.9; // Probabilità di successo (l'hacker ha il 70% di possibilità di bucare un server)
+let p = 0.5; // Probabilità di successo (0.5 significa 50% di successo)
 let T = 20; // Numero di simulazioni
 
 // Esegui la simulazione e ottieni i risultati
