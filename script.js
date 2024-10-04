@@ -21,6 +21,7 @@ function simulazioneHackingServer(N, M, p, T) {
                 // Controlla se il server j è già stato bucato da i
                 if (!serverBucati[i].has(j)) { 
                     let r = Math.random(); // Genera un numero casuale tra 0 e 1
+                    console.log(`Tentativo: ${t}, Hacker: ${i}, Server: ${j}, r: ${r}, p: ${p}`);
 
                     // Se r <= p, l'hacker riesce a bucare il server (inverte la logica)
                     if (r <= p) {
